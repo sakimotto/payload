@@ -1,0 +1,2 @@
+# Rename env.example to .env.example for standard naming convention
+Move-Item -Path "C:\Users\Archie\Desktop\Projects\ZerviOS\env.example" -Destination "C:\Users\Archie\Desktop\Projects\ZerviOS\.env.example" -Force

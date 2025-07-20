@@ -1,0 +1,33 @@
+FROM node:18-alpine as base
+
+FROM base as builder
+
+WORKDIR /app
+
+# Copy package files and install dependencies
+COPY package*.json ./
+RUN npm install
+
+# Copy source files
+COPY . .
+
+# Build the application
+RUN npm run build
+
+FROM base as runtime
+
+WORKDIR /app
+
+# Copy package files and install production dependencies only
+COPY package*.json ./
+RUN npm install --production
+
+# Copy built files from builder stage
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/build ./build
+
+# Expose the application port
+EXPOSE 3000
+
+# Start the application
+CMD ["npm", "run", "serve"]
