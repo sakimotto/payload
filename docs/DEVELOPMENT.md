@@ -168,6 +168,31 @@ docker-compose exec mongodb mongosh
 
 ## Common Issues
 
+### Payload CMS Version Compatibility
+
+**CRITICAL**: This project uses Payload v2.5.0. Do NOT use v3 configuration syntax.
+
+1. **Module Resolution Errors**:
+   - Check `payload.config.ts` uses v2 syntax
+   - Verify dependencies match v2 versions
+   - See [Post-Mortem](./POST_MORTEM_PAYLOAD_V2_MIGRATION.md) for detailed analysis
+
+2. **Required v2 Dependencies**:
+   ```json
+   {
+     "@payloadcms/bundler-webpack": "^1.0.0",
+     "@payloadcms/richtext-slate": "^1.0.0",
+     "@payloadcms/db-mongoose": "^1.0.0"
+   }
+   ```
+
+3. **Configuration Template**:
+   ```typescript
+   import { buildConfig } from 'payload/config' // NOT 'payload'
+   import { webpackBundler } from '@payloadcms/bundler-webpack'
+   import { slateEditor } from '@payloadcms/richtext-slate' // NOT lexicalEditor
+   ```
+
 ### Container Issues
 
 1. Ports already in use:
@@ -193,6 +218,13 @@ npm install
 ```bash
 docker-compose build --no-cache
 ```
+
+3. **Payload Build Process**:
+   ```bash
+   cd src/payload
+   npm run build  # Required before npm run dev
+   npm run dev
+   ```
 
 ## Deployment
 
