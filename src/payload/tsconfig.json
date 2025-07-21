@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es2020",
+    "module": "NodeNext",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "strict": false,
@@ -9,9 +10,11 @@
     "outDir": "./dist",
     "rootDir": "./",
     "jsx": "react",
-    "moduleResolution": "node",
+    "moduleResolution": "NodeNext",
     "resolveJsonModule": true,
-    "downlevelIteration": true
+    "downlevelIteration": true,
+    "allowSyntheticDefaultImports": true,
+    "noEmit": false
   },
   "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", "dist"]
